@@ -9,8 +9,6 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Button } from "@/components/ui/button";
 import { ClipboardCopy, Check } from "lucide-react";
-import NumberTicker from "@/components/magicui/number-ticker";
-import SpeedingNumberTicker from "@/components/SpeedingNumberTicker";
 import EnhancedLoadingIndicator from "@/components/EnhancedLoadingIndicator";
 
 interface AICoachProps {
@@ -68,7 +66,7 @@ Please provide concise feedback in markdown format.`;
   };
 
   return (
-    <ScrollArea className="h-full w-full max-w-full">
+    <ScrollArea className="h-full w-full">
       {isLoading ? (
         <div className="h-full flex items-center justify-center">
           <EnhancedLoadingIndicator value={5000} duration={5} />
@@ -127,6 +125,7 @@ Please provide concise feedback in markdown format.`;
         />
       )}
       <ScrollBar orientation="vertical" />
+      <ScrollBar orientation="horizontal" />
     </ScrollArea>
   );
 };
