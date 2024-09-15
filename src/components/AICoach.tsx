@@ -68,7 +68,7 @@ Please provide concise feedback in markdown format.`;
   };
 
   return (
-    <ScrollArea className="h-full w-full">
+    <ScrollArea className="h-full w-full max-w-full">
       {isLoading ? (
         <div className="h-full flex items-center justify-center">
           <EnhancedLoadingIndicator value={5000} duration={5} />
@@ -77,12 +77,12 @@ Please provide concise feedback in markdown format.`;
         <BlurIn
           word={
             <ReactMarkdown
-              className="whitespace-pre-wrap text-black dark:text-white text-sm text-left p-4"
+              className="whitespace-pre-wrap text-black dark:text-white text-sm text-left p-2 sm:p-4"
               components={{
                 code({ node, inline, className, children, ...props }: any) {
                   const match = /language-(\w+)/.exec(className || '');
                   return !inline && match ? (
-                    <div className="relative my-4">
+                    <div className="relative my-2 sm:my-4">
                       <div className="overflow-x-auto">
                         <SyntaxHighlighter
                           style={vscDarkPlus as any}
@@ -90,8 +90,8 @@ Please provide concise feedback in markdown format.`;
                           PreTag="div"
                           {...props}
                           customStyle={{
-                            fontSize: '0.875rem',
-                            padding: '1rem',
+                            fontSize: '0.75rem',
+                            padding: '0.5rem',
                             borderRadius: '0.375rem',
                           }}
                           wrapLines={true}
