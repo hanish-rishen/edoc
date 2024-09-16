@@ -1,11 +1,10 @@
 import React from 'react';
-import { Inter, Silkscreen } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Sidebar from '@/components/Sidebar';
 
 const inter = Inter({ subsets: ['latin'] });
-const silkscreen = Silkscreen({ subsets: ['latin'], weight: ['400', '700'] });
 
 export const metadata = {
   title: 'CodeCoach',
@@ -19,9 +18,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet" />
-      </head>
       <body className={inter.className}>
         <div className="flex flex-col h-screen">
           <Navbar />
