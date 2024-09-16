@@ -51,7 +51,7 @@ Please provide concise feedback in markdown format.`;
         setIsLoading(false);
       }
     }, 1000),
-    []
+    [setIsLoading, setFeedback]
   );
 
   useEffect(() => {
