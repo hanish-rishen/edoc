@@ -17,7 +17,7 @@ export default function ProblemsPage() {
       const limit = 1000; // Supabase default limit
 
       while (true) {
-        let { data, error } = await supabase
+        const { data, error } = await supabase
           .from('problems')
           .select('*')
           .range(from, from + limit - 1);

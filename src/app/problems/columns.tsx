@@ -12,12 +12,7 @@ const companyColors = [
   'bg-pink-500 text-white',
 ];
 
-const companyLogos: { [key: string]: string } = {
-  Google: 'https://logo.clearbit.com/google.com',
-  Facebook: 'https://logo.clearbit.com/facebook.com',
-  Amazon: 'https://logo.clearbit.com/amazon.com',
-  // Add more companies and their logos here
-};
+// Removed the unused companyLogos object
 
 export const columns: ColumnDef<any>[] = [
   {
