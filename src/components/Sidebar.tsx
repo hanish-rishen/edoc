@@ -1,55 +1,46 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { Home, FolderOpen, Settings, Menu } from 'lucide-react';
+import { Home, FolderOpen, Settings, Code, ChevronRight, ChevronLeft } from 'lucide-react';
 
 const Sidebar: React.FC = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsCollapsed(window.innerWidth < 768);
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize();
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const toggleSidebar = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   return (
-    <div className={`bg-white h-full border-r border-gray-200 transition-all duration-300 ${
-      isCollapsed ? 'w-16' : 'w-36 sm:w-40 md:w-44 lg:w-48'
-    }`}>
-      <button
-        className="md:hidden w-full p-3 text-gray-700 hover:bg-gray-100 transition-colors duration-150"
-        onClick={() => setIsCollapsed(!isCollapsed)}
+    <div className={`relative bg-white h-full border-r border-gray-200 transition-all duration-300 ${isExpanded ? 'w-64' : 'w-16'}`}>
+      <button 
+        onClick={toggleSidebar} 
+        className="absolute -right-4 top-4 bg-white text-gray-700 hover:bg-gray-100 p-2 rounded-full border border-gray-200 transition-colors duration-150 z-10"
       >
-        <Menu className="w-6 h-6 mx-auto" />
+        {isExpanded ? <ChevronLeft className="w-6 h-6" /> : <ChevronRight className="w-6 h-6" />}
       </button>
-      <ul className="space-y-2 mt-4 p-3">
+      <ul className="space-y-2 mt-12 p-3">
         <li>
-          <Link href="/" className={`flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded transition-colors duration-150 ${
-            isCollapsed ? 'justify-center' : ''
-          }`}>
-            <Home className={`w-6 h-6 ${isCollapsed ? 'mx-auto' : 'mr-2'}`} />
-            {!isCollapsed && <span className="text-sm">Dashboard</span>}
+          <Link href="/" className="flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded transition-colors duration-150">
+            <Home className="w-6 h-6 min-w-[24px]" />
+            {isExpanded && <span className="ml-3">Home</span>}
           </Link>
         </li>
         <li>
-          <Link href="/projects" className={`flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded transition-colors duration-150 ${
-            isCollapsed ? 'justify-center' : ''
-          }`}>
-            <FolderOpen className={`w-6 h-6 ${isCollapsed ? 'mx-auto' : 'mr-2'}`} />
-            {!isCollapsed && <span className="text-sm">Projects</span>}
+          <Link href="/projects" className="flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded transition-colors duration-150">
+            <FolderOpen className="w-6 h-6 min-w-[24px]" />
+            {isExpanded && <span className="ml-3">Projects</span>}
           </Link>
         </li>
         <li>
-          <Link href="/settings" className={`flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded transition-colors duration-150 ${
-            isCollapsed ? 'justify-center' : ''
-          }`}>
-            <Settings className={`w-6 h-6 ${isCollapsed ? 'mx-auto' : 'mr-2'}`} />
-            {!isCollapsed && <span className="text-sm">Settings</span>}
+          <Link href="/problems" className="flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded transition-colors duration-150">
+            <Code className="w-6 h-6 min-w-[24px]" />
+            {isExpanded && <span className="ml-3">Problems</span>}
+          </Link>
+        </li>
+        <li>
+          <Link href="/settings" className="flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded transition-colors duration-150">
+            <Settings className="w-6 h-6 min-w-[24px]" />
+            {isExpanded && <span className="ml-3">Settings</span>}
           </Link>
         </li>
       </ul>

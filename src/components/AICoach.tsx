@@ -20,39 +20,42 @@ const AICoach: React.FC<AICoachProps> = ({ code }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
-  const analyzecode = useCallback((codeToAnalyze: string) => {
-    const analyze = async () => {
-      setIsLoading(true);
-      const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-      if (!apiKey) {
-        console.error('API key is not set');
-        setFeedback('API key is not configured properly.');
-        setIsLoading(false);
-        return;
-      }
-      const genAI = new GoogleGenerativeAI(apiKey);
-      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  const analyzecode = useCallback(
+    debounce((codeToAnalyze: string) => {
+      const analyze = async () => {
+        setIsLoading(true);
+        const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+        if (!apiKey) {
+          console.error('API key is not set');
+          setFeedback('API key is not configured properly.');
+          setIsLoading(false);
+          return;
+        }
+        const genAI = new GoogleGenerativeAI(apiKey);
+        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-      const prompt = `Analyze the following code and provide feedback on any mistakes or improvements:
+        const prompt = `Analyze the following code and provide feedback on any mistakes or improvements:
 
 ${codeToAnalyze}
 
 Please provide concise feedback in markdown format.`;
 
-      try {
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = response.text();
-        setFeedback(text);
-      } catch (error) {
-        console.error('Error generating content:', error);
-        setFeedback('An error occurred while analyzing the code.');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    debounce(analyze, 1000)();
-  }, []);
+        try {
+          const result = await model.generateContent(prompt);
+          const response = await result.response;
+          const text = response.text();
+          setFeedback(text);
+        } catch (error) {
+          console.error('Error generating content:', error);
+          setFeedback('An error occurred while analyzing the code.');
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      analyze();
+    }, 2000),
+    []
+  );
 
   useEffect(() => {
     analyzecode(code);

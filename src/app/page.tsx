@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import AICoach from '../components/AICoach';
 import { Card, CardContent } from "@/components/ui/card";
+import RouteLoader from '@/components/RouteLoader';
 
 const CodeEditor = dynamic(() => import('../components/CodeEditor'), {
   ssr: false,
@@ -10,6 +11,14 @@ const CodeEditor = dynamic(() => import('../components/CodeEditor'), {
 
 const Home: React.FC = () => {
   const [code, setCode] = useState<string>('// Start coding here');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulating some async operation
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
 
   const handleCodeChange = (value: string | undefined) => {
     if (value) {
@@ -21,7 +30,13 @@ const Home: React.FC = () => {
     <div className="flex flex-col lg:flex-row gap-2 sm:gap-4 p-2 sm:p-4">
       <div className="w-full lg:w-2/3 flex flex-col">
         <h2 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4">Code Editor</h2>
-        <CodeEditor code={code} onChange={handleCodeChange} />
+        {isLoading ? (
+          <div className="relative h-[calc(100vh-12rem)]">
+            <RouteLoader />
+          </div>
+        ) : (
+          <CodeEditor code={code} onChange={handleCodeChange} />
+        )}
       </div>
       <div className="w-full lg:w-1/3 flex flex-col mt-2 lg:mt-0">
         <h2 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4">AI Coach</h2>

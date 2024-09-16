@@ -7,7 +7,7 @@ import Sidebar from '@/components/Sidebar';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'CodeCoach',
+  title: 'edoc',
   description: 'Your AI-powered coding assistant',
 };
 
