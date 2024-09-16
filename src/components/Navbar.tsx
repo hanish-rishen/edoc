@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import ShinyButton from "@/components/magicui/shiny-button";
+import { Silkscreen } from 'next/font/google';
+
+const silkscreen = Silkscreen({ subsets: ['latin'], weight: ['400', '700'] });
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,26 +22,22 @@ const Navbar = () => {
     <nav className="bg-white border border-gray-200 relative">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link href="/" className="text-black text-2xl font-bold flex items-center py-4" onClick={closeMenu}>
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="10" />
-            <line x1="2" y1="12" x2="22" y2="12" />
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-          </svg>
-          <span className="align-middle">edoc</span>
+          <span className="text-4xl mr-2" role="img" aria-label="Wolf">🐺</span>
+          <span className={`align-middle ${silkscreen.className} text-3xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text`}>edoc</span>
         </Link>
         <div className="flex items-center">
           <ul className="hidden lg:flex lg:items-center space-x-4">
             <li>
-              <Link href="/" className="block text-gray-800 hover:text-gray-600 font-bold">Home</Link>
+              <Link href="/" className="block text-gray-800 hover:text-gray-600 font-bold">🏠 Home</Link>
             </li>
             <li>
-              <Link href="/editor" className="block text-gray-800 hover:text-gray-600 font-bold">Editor</Link>
+              <Link href="/editor" className="block text-gray-800 hover:text-gray-600 font-bold">✏️ Editor</Link>
             </li>
             <li>
-              <Link href="/ai-coach" className="block text-gray-800 hover:text-gray-600 font-bold">AI Coach</Link>
+              <Link href="/ai-coach" className="block text-gray-800 hover:text-gray-600 font-bold">🤖 AI Coach</Link>
             </li>
             <li>
-              <Link href="/profile" className="block text-gray-800 hover:text-gray-600 font-bold">Profile</Link>
+              <Link href="/profile" className="block text-gray-800 hover:text-gray-600 font-bold">👤 Profile</Link>
             </li>
             <li>
               <Link href="/signin">
@@ -85,7 +84,7 @@ const Navbar = () => {
                   transition={{ delay: 0.1 }}
                   className="mb-6"
                 >
-                  <Link href="/" className="text-3xl font-bold text-gray-800 hover:text-gray-600 transition-colors" onClick={closeMenu}>Home</Link>
+                  <Link href="/" className="text-3xl font-bold text-gray-800 hover:text-gray-600 transition-colors" onClick={closeMenu}>🏠 Home</Link>
                 </motion.li>
                 <motion.li
                   initial={{ opacity: 0, y: 20 }}
@@ -93,7 +92,7 @@ const Navbar = () => {
                   transition={{ delay: 0.2 }}
                   className="mb-6"
                 >
-                  <Link href="/editor" className="text-3xl font-bold text-gray-800 hover:text-gray-600 transition-colors" onClick={closeMenu}>Editor</Link>
+                  <Link href="/editor" className="text-3xl font-bold text-gray-800 hover:text-gray-600 transition-colors" onClick={closeMenu}>✏️ Editor</Link>
                 </motion.li>
                 <motion.li
                   initial={{ opacity: 0, y: 20 }}
@@ -101,7 +100,7 @@ const Navbar = () => {
                   transition={{ delay: 0.3 }}
                   className="mb-6"
                 >
-                  <Link href="/ai-coach" className="text-3xl font-bold text-gray-800 hover:text-gray-600 transition-colors" onClick={closeMenu}>AI Coach</Link>
+                  <Link href="/ai-coach" className="text-3xl font-bold text-gray-800 hover:text-gray-600 transition-colors" onClick={closeMenu}>🤖 AI Coach</Link>
                 </motion.li>
                 <motion.li
                   initial={{ opacity: 0, y: 20 }}
@@ -109,7 +108,7 @@ const Navbar = () => {
                   transition={{ delay: 0.4 }}
                   className="mb-6"
                 >
-                  <Link href="/profile" className="text-3xl font-bold text-gray-800 hover:text-gray-600 transition-colors" onClick={closeMenu}>Profile</Link>
+                  <Link href="/profile" className="text-3xl font-bold text-gray-800 hover:text-gray-600 transition-colors" onClick={closeMenu}>👤 Profile</Link>
                 </motion.li>
                 <motion.li
                   initial={{ opacity: 0, y: 20 }}

@@ -20,8 +20,8 @@ const AICoach: React.FC<AICoachProps> = ({ code }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
-  const analyzecode = useCallback(
-    debounce(async (codeToAnalyze: string) => {
+  const analyzecode = useCallback((codeToAnalyze: string) => {
+    const analyze = async () => {
       setIsLoading(true);
       const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
       if (!apiKey) {
@@ -50,9 +50,9 @@ Please provide concise feedback in markdown format.`;
       } finally {
         setIsLoading(false);
       }
-    }, 1000),
-    [setIsLoading, setFeedback]
-  );
+    };
+    debounce(analyze, 1000)();
+  }, []);
 
   useEffect(() => {
     analyzecode(code);
@@ -77,7 +77,7 @@ Please provide concise feedback in markdown format.`;
             <ReactMarkdown
               className="whitespace-pre-wrap text-black dark:text-white text-sm text-left p-2 sm:p-4"
               components={{
-                code({ node, inline, className, children, ...props }: any) {
+                code({ inline, className, children, ...props }: React.ComponentPropsWithoutRef<'code'> & { inline?: boolean }) {
                   const match = /language-(\w+)/.exec(className || '');
                   return !inline && match ? (
                     <div className="relative my-2 sm:my-4">
